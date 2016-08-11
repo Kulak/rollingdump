@@ -11,6 +11,12 @@ rc=0
 #
 # variable n controls dry run:
 #   env n=echo ./rollingdump.sh 0
+#
+# NOTICE
+#
+# On FreeBSD weekly backup is done on Saturday, which is Day 6 of the week.
+# The Level 2 backup that follows it would appear out of order in 'ls -l' output,
+# because D1 represents Monday and D6 represents Saturday.
 
 NAME=rollingdump
 LEVEL=${1:-0}
@@ -29,8 +35,9 @@ if [ $# -gt 2 -a _$MARKER = _'BACKUP' ]; then
 
     weekFreq=6
     # Example of zero pad number:   monthMod=$(printf %02d $monthMod)
+	# dayOfWeek values: 1-6, where 1 is Monday
     dayOfWeek=`date -j +"%u"`
-    # %W is ISO week of year is
+    # %W is ISO week of year
     weekOfYear=`date -j +"%W"`
     weekMod=`expr ${weekOfYear} % ${weekFreq}`
 
