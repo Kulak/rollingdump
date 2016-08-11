@@ -55,6 +55,7 @@ if [ $# -gt 2 -a _$MARKER = _'BACKUP' ]; then
     ${n} rm -v ${backupDir}/${name}_${suffix}*.dump*
     echo Dumping to ${dumpFileName}
     ${n} ${dump} -f ${backupDir}/${dumpFileName} ${fspath}
+    ${n} ${compress} ${backupDir}/${dumpFileName}
     return
 fi
 
